@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>IMGGEN Сервис по загрузке изобажений</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+		body {
+			opacity: 0;
+		}
+	</style>
+	<link rel="stylesheet" href="css/style.min.css?_v=20230517023711">
+	<link rel="shortcut icon" href="img/favicon.svg">
+	<meta name="theme-color" content="#6060cc">
+	<meta name="description" content="Сервис по загрузке изображений">
+	<meta name="keywords" content="Загрузка изобажений, редактировать изобажение, залить картинки, загрузить фото">
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__logo">
+				<a href="index.html">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+						<path d="M28 15c0-1.864-1.032-3.471-2.545-4.331.462-1.677.055-3.543-1.263-4.862a4.985 4.985 0 0 0-3.536-1.464c-.448 0-.891.082-1.326.202C18.471 3.032 16.864 2 15 2s-3.471 1.032-4.331 2.545a4.996 4.996 0 0 0-1.326-.202c-1.28 0-2.559.488-3.536 1.464-1.318 1.318-1.724 3.184-1.263 4.862C3.032 11.529 2 13.136 2 15s1.032 3.471 2.545 4.331c-.461 1.677-.055 3.543 1.263 4.862a4.985 4.985 0 0 0 3.536 1.464c.448 0 .891-.082 1.326-.202C11.529 26.968 13.136 28 15 28s3.471-1.032 4.331-2.545c.435.12.878.202 1.326.202 1.28 0 2.559-.488 3.536-1.464 1.318-1.318 1.724-3.184 1.263-4.862C26.968 18.471 28 16.864 28 15zm-7.343-8.907c.868 0 1.684.338 2.298.952s.952 1.43.952 2.298c0 .253-.037.499-.093.739A4.957 4.957 0 0 0 23 10h-3V7c0-.279-.038-.548-.082-.814.24-.056.486-.093.739-.093zm-1 5.692c.114-.012.225-.035.343-.035h2.846l-2.013 2.013c-.082.082-.177.146-.266.218a5 5 0 0 0-2.032-.445 4.994 4.994 0 0 0 1.122-1.751zM15 3.75c1.164 0 2.179.62 2.753 1.542a4.873 4.873 0 0 0-.631.516L15 7.929l-2.121-2.121a5.028 5.028 0 0 0-.631-.516A3.239 3.239 0 0 1 15 3.75zM17 15a2 2 0 1 1-3.999.001A2 2 0 0 1 17 15zm-5.25-7.846 2.013 2.013c.082.082.146.177.218.266a5 5 0 0 0-.445 2.032 5.004 5.004 0 0 0-1.751-1.122c-.013-.114-.035-.226-.035-.343V7.154zm-4.705-.109a3.228 3.228 0 0 1 2.298-.952c.253 0 .499.037.739.093A4.957 4.957 0 0 0 10 7v3H7c-.279 0-.548.038-.814.082a3.244 3.244 0 0 1-.093-.739c0-.868.338-1.684.952-2.298zM5.292 17.753C4.37 17.179 3.75 16.164 3.75 15s.62-2.179 1.542-2.753c.157.219.319.435.516.631L7.929 15l-2.121 2.121a4.95 4.95 0 0 0-.516.632zm4.051 6.154a3.228 3.228 0 0 1-2.298-.952 3.228 3.228 0 0 1-.952-2.298c0-.253.037-.499.093-.739.266.044.535.082.814.082h3v3c0 .279.038.548.082.814-.24.056-.486.093-.739.093zm1-5.692c-.114.013-.226.035-.343.035H7.154l2.013-2.013c.082-.082.177-.146.266-.219a5.002 5.002 0 0 0 2.032.446 4.994 4.994 0 0 0-1.122 1.751zm-.911-4.234c-.089-.072-.184-.136-.266-.218L7.154 11.75H10c.117 0 .229.022.343.035.253.661.63 1.26 1.122 1.751-.696 0-1.386.157-2.033.445zM11.75 20c0-.117.022-.229.035-.343a4.985 4.985 0 0 0 1.751-1.122c0 .695.157 1.386.446 2.032-.072.089-.136.184-.219.266l-2.013 2.013V20zM15 26.25a3.242 3.242 0 0 1-2.753-1.542c.219-.157.435-.319.631-.516L15 22.071l2.121 2.121c.196.196.413.359.631.516A3.239 3.239 0 0 1 15 26.25zm3.25-3.404-2.013-2.013c-.082-.082-.146-.177-.218-.266a5 5 0 0 0 .445-2.032c.491.491 1.09.868 1.751 1.122.012.114.035.225.035.343v2.846zm0-12.846c0 .117-.022.229-.035.343a4.985 4.985 0 0 0-1.751 1.122c0-.695-.157-1.386-.445-2.032.072-.089.136-.183.218-.266l2.013-2.013V10zm.286 6.464c.695 0 1.386-.157 2.032-.445.089.072.184.136.266.218l2.013 2.013H20c-.117 0-.229-.022-.343-.035a5.006 5.006 0 0 0-1.121-1.751zm4.419 6.491a3.228 3.228 0 0 1-2.298.952c-.253 0-.499-.037-.739-.093.044-.266.082-.535.082-.814v-3h3c.279 0 .548-.038.814-.082.056.24.093.486.093.739 0 .868-.338 1.684-.952 2.298zm1.753-5.202a4.873 4.873 0 0 0-.516-.631L22.071 15l2.121-2.121c.196-.196.359-.413.516-.631.922.573 1.542 1.588 1.542 2.752s-.62 2.179-1.542 2.753z" />
+					</svg>
+					IMGGEN
+				</a>
+			</div>
+			<button class="header__upload-btn _icon-upload" type="button"><span>Загрузка</span></button>
+			<nav data-lp class="header__menu">
+				<a data-goto=".main" data-goto-header href="#" data-goto-top="20" href="#" class="header__link">INFO</a>
+				<a data-goto=".api" data-goto-header href="#" data-goto-top="20" class="header__link">API</a>
+				<a data-goto=".footer" data-goto-header href="#" data-goto-top="20" href="#" class="header__link">CONTACT</a>
+			</nav>
+			<button class="header__burger"><span></span></button>
+		</header>
+		<aside data-lp class="upload">
+			<button data-lp class="upload__close _icon-xmark" type="button">Закрыть</button>
+			<button data-lp class="upload__renew _icon-renew" type="button">Сбросить</button>
+
+			<form class="upload__form">
+				<label class="upload__label upload__label_main">
+					<h2 class="upload__title _icon-upload">Перетащите или вставьте изображения для начала загрузки</h2>
+					<p class="upload__text"></p>
+					<input hidden type="file" class="upload__input" multiple accept="image/*, .jpg,.png,.bmp,.gif,.tif,.webp,.heic,.pdf,.jpeg,.tiff,.heif">
+				</label>
+				<label class="upload__label upload__label_edit">
+					<h3 class="upload__title _icon-images">Нажмите на <span class="_icon-edit"></span> чтобы отредактировать изображение или изменить его размер. Или нажмите <span class="_icon-renew"></span> чтобы загрузить новые изображения</h3>
+					<p class="upload__text"></p>
+				</label>
+				<label class="upload__label upload__label_success">
+					<h3 class="upload__title _icon-success">Заргузка завершена</h3>
+					<p class="upload__text"></p>
+				</label>
+
+				<div class="upload__previews previews"></div>
+
+				<div hidden class="upload__actions">
+					<h4 class="upload__autodelete-title">Автоудаление изображений</h4>
+					<select class="upload__autodelete-time" name="" class="text-input">
+						<option value="PT0" selected>Никогда не удалять</option>
+						<option value="PT5M">Через 5 минут</option>
+						<option value="PT15M">Через 15 минут</option>
+						<option value="PT30M">Через 30 минут</option>
+						<option value="PT1H">Через 1 час</option>
+						<option value="PT3H">Через 3 часа</option>
+						<option value="PT6H">Через 6 часов</option>
+						<option value="PT12H">Через 12 часов</option>
+						<option value="P1D">Через 1 день</option>
+						<option value="P3D">Через 3 дня</option>
+						<option value="P1W">Через 1 неделю</option>
+						<option value="P2W">Через 2 недели</option>
+						<option value="P1M">Через 1 месяц</option>
+						<option value="P3M">Через 3 месяца</option>
+						<option value="P6M">Через 6 месяцев</option>
+					</select>
+					<button class="upload__submit btn" type="submit">Загрузить</button>
+				</div>
+
+				<div class="upload__results results">
+					<select class="results__select">
+						<optgroup label="Ссылки">
+							<option class="dsad" name="result[1]">Ссылки на просмотр</option>
+							<option class="dsadf" name="result[2]">Прямые ссылки</option>
+						</optgroup>
+						<optgroup label="HTML-коды">
+							<option name="result[3]">HTML-код полноразмерного со ссылкой</option>
+							<option name="result[4]">HTML-код среднего размера со ссылкой</option>
+							<option name="result[5]">HTML-код миниатюры со ссылкой</option>
+						</optgroup>
+						<optgroup label="BB-коды">
+							<option name="result[6]">BB-код полноразмерного</option>
+							<option name="result[7]">BB-код полноразмерного со ссылкой</option>
+							<option name="result[8]">BB-код среднего размера со ссылкой</option>
+							<option name="result[9]">BB-код миниатюры со ссылкой</option>
+						</optgroup>
+					</select>
+					<ol class="results__links"></ol>
+				</div>
+			</form>
+
+
+
+
+		</aside>
+
+		<main class="page">
+			<section class="page__main main">
+				<h1 class="main__title h">Загружайте и делитесь изображениями</h1>
+				<p class="main__label">Начните загружать изображения простым перетаскиванием в любое место окна прямо сейчас. Ограничение на размер изображения 32 MB. После загрузки, Вам будут доступны прямые ссылки, BB-коды и миниатюры.</p>
+				<button class="main__button btn">Начать</button>
+				<div class="main__decorations">
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+				</div>
+			</section>
+			<section class="page__info info">
+				<h2 class="info__text">Вы можете загружать картинки, устанавливать таймер удаления, редактировать размеры, название, описание, а так же получать ссылки на источник в разных форматах. Моей задачей было создание фронтенд-части, а так же дизайна и структуры сервиса по работе с изображениями. В данный момент бэкенд-часть проекта в процессе разработки, поэтому для демонстрации подключен API аналогичного сервиса <a href="httpsimgbb.com/">imgbb.com</a> При написании проекта использовался только native javascript.</h2>
+			</section>
+			<section class="page__api api">
+				<h2 class="api__title h">API</h2>
+				<dl class="api__dl">
+					<dt class="api__dt">Request</dt>
+					<dd class="api__dd">https://api.imgbb.com/1/upload?name=name&description=desc&expiration=600&key=YOUR_CLIENT_API_KEY"<br> --form "image=R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7</dd>
+					<dt class="api__dt">Type</dt>
+					<dd class="api__dd">POST</dd>
+					<dt class="api__dt">Key</dt>
+					<dd class="api__dd">The API key</dd>
+					<dt class="api__dt">Image</dt>
+					<dd class="api__dd">TA binary file, base64 data, or a URL for an image. (up to 32 MB)</dd>
+					<dt class="api__dt">Name</dt>
+					<dd class="api__dd">The name of the file, this is automatically detected if uploading a file with a POST and multipart / form-data)</dd>
+					<dt class="api__dt">Expiration</dt>
+					<dd class="api__dd">Enable this if you want to force uploads to be auto deleted after certain time (in seconds 60-15552000)</dd>
+					<dt class="api__dt">Description</dt>
+					<dd class="api__dd">The description of the file (optional)</dd>
+				</dl>
+			</section>
+			<div class="page__decorations">
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>
+
+		</main>
+		<footer class="footer">
+			<h2 class="footer__title">Contacts</h2>
+			<p class="footer__text">Russia, Saratov</p>
+			<article class="footer__call-card card">
+				<div class="card__foto"><picture><source srcset="img/123.webp" type="image/webp"><img src="img/123.jpg" alt="Моё фото"></picture></div>
+				<h3 class="card__name">Артем</h3>
+				<p class="card__label">Напишите мне</p>
+				<div class="card__contact-buttons">
+					<a href="https://t.me/hz785fvq" class="card__button" title="telegram">
+						<svg width="50" height="50" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="16" cy="16" r="14" fill="url(#a)" />
+							<path d="M22.987 10.209c.124-.806-.642-1.441-1.358-1.127L7.365 15.345c-.514.225-.476 1.003.056 1.173l2.942.937c.562.179 1.17.086 1.66-.253l6.632-4.582c.2-.138.418.147.247.323l-4.774 4.922c-.463.477-.371 1.286.186 1.636l5.345 3.351c.6.376 1.37-.001 1.483-.726l1.845-11.917z" fill="#fff" />
+							<defs>
+								<linearGradient id="a" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
+									<stop stop-color="#37BBFE" />
+									<stop offset="1" stop-color="#007DBB" />
+								</linearGradient>
+							</defs>
+						</svg>
+					</a>
+					<a href="https://wa.me/79198339453" class="card__button" title="whatsapp" s>
+						<svg width="45" height="45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+							<path d="M17 0C8.7 0 2 6.7 2 15c0 3.4 1.1 6.6 3.2 9.2l-2.1 6.4c-.1.4 0 .8.3 1.1.1.2.4.3.6.3.1 0 .3 0 .4-.1l6.9-3.1c1.8.8 3.7 1.2 5.7 1.2 8.3 0 15-6.7 15-15S25.3 0 17 0z" style="fill:#25d366" />
+							<path d="M25.7 20.5c-.4 1.2-1.9 2.2-3.2 2.4-.3.1-.6.1-1 .1-.8 0-2-.2-4.1-1.1-2.4-1-4.8-3.1-6.7-5.8V16c-.6-.9-1.7-2.6-1.7-4.4 0-2.2 1.1-3.3 1.5-3.8.5-.5 1.2-.8 2-.8h.5c.7 0 1.2.2 1.7 1.2l.4.8c.3.8.7 1.7.8 1.8.3.6.3 1.1 0 1.6-.1.3-.3.5-.5.7-.1.2-.2.3-.3.3l-.2.2c.3.5.9 1.4 1.7 2.1 1.2 1.1 2.1 1.4 2.6 1.6.2-.2.4-.6.7-.9l.1-.2c.5-.7 1.3-.9 2.1-.6.4.2 2.6 1.2 2.6 1.2l.2.1c.3.2.7.3.9.7.4.9.1 2.2-.1 2.9z" style="fill:#fff" />
+						</svg>
+					</a>
+				</div>
+			</article>
+			<p class="footer__text">Сайты под ключ</p>
+
+		</footer>
+	</div>
+	<script src="js/app.min.js?_v=20230517023711"></script>
+</body>
+
+</html>

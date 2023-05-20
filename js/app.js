@@ -441,36 +441,65 @@
             }));
         }
     }), 0);
-    function uploadSidebarToggle() {
-        document.addEventListener("click", (e => {
-            const uploadElements = e.target.closest(".upload, .popup") || e.target.matches(".previews__edit, .previews__delete, .upload__submit, .header__burger");
-            if (e.target.closest(".header__upload-btn") || e.target.closest(".upload__close")) document.documentElement.classList.toggle("upload-active"); else if (!uploadElements) document.documentElement.classList.remove("upload-active");
-        }));
-        window.addEventListener("keydown", (e => {
-            if (e.key === "Escape") document.documentElement.classList.remove("upload-active");
-        }));
-    }
-    uploadSidebarToggle();
     function uploadSidebar() {
-        const allowedTypes = [ "image/jpeg", "image/png", "image/gif", "image/bmp", "image/tif", "image/webp", "image/heic", "image/pdf", "image/jpg", "image/pdf", "image/tiff", " image/heif" ], imageInput = document.querySelector(".upload__input"), uploadArea = document.querySelector(".upload"), previewsContainer = document.querySelector(".previews"), renewBtn = document.querySelector(".upload__renew"), uploadResults = (document.querySelector(".upload__actions"), 
-        document.querySelector(".results")), resultLinks = document.querySelector(".results__links"), uploadTitle = document.querySelector(".upload__label_main"), form = document.querySelector(".upload__form");
+        const allowedTypes = [ "image/jpeg", "image/png", "image/gif", "image/bmp", "image/tif", "image/webp", "image/heic", "image/pdf", "image/jpg", "image/pdf", "image/tiff", " image/heif" ], imageInput = document.querySelector(".upload__input"), uploadArea = document.querySelector(".upload"), previewsContainer = document.querySelector(".previews"), renewBtn = document.querySelector(".upload__renew"), uploadResults = document.querySelector(".results"), resultLinks = document.querySelector(".results__links"), form = document.querySelector(".upload__form"), body = document.documentElement;
         let idCounter = 0;
+        let startY = 0;
+        let endY = 0;
+        let swipeThreshold = 50;
+        function uploadClose() {
+            body.classList.remove("upload-active");
+            body.removeEventListener("touchstart", handleTouchStart, {
+                passive: true
+            });
+            body.removeEventListener("touchend", handleTouchEnd, {
+                passive: true
+            });
+        }
+        function handleTouchStart(e) {
+            startY = e.touches[0].clientY;
+        }
+        function handleTouchEnd(e) {
+            endY = e.changedTouches[0].clientY;
+            let swipeLength = endY - startY;
+            if (endY < startY && Math.abs(swipeLength) > swipeThreshold) {
+                body.classList.remove("upload-active");
+                body.removeEventListener("touchstart", handleTouchStart, {
+                    passive: true
+                });
+                body.removeEventListener("touchend", handleTouchEnd, {
+                    passive: true
+                });
+            }
+        }
+        body.addEventListener("click", (e => {
+            const uploadElements = e.target.closest(".upload, .popup") || e.target.matches(".previews__edit, .previews__delete, .upload__submit, .header__burger");
+            if (e.target.closest(".header__upload-btn") && !body.classList.contains("upload-active") && !body.classList.contains("preload") && !body.classList.contains("uploaded")) {
+                body.addEventListener("touchstart", handleTouchStart, {
+                    passive: true
+                });
+                body.addEventListener("touchend", handleTouchEnd, {
+                    passive: true
+                });
+            }
+            if (e.target.closest(".header__upload-btn") || e.target.closest(".upload__close")) body.classList.toggle("upload-active"); else if (!uploadElements) uploadClose();
+        }));
+        window.addEventListener("keydown", (e => e.key === "Escape" && uploadClose()));
         uploadArea.addEventListener("dragover", (e => e.preventDefault()));
         uploadArea.addEventListener("drop", (e => e.dataTransfer.files || e.dataTransfer.files.length ? (e.preventDefault(), 
         handleFiles(e.dataTransfer.files)) : null));
         imageInput.addEventListener("change", (() => {
             if (imageInput.files || imageInput.files.length) {
                 handleFiles(imageInput.files);
-                document.documentElement.classList.add("upload-active");
+                body.classList.add("upload-active");
             }
         }));
         document.querySelector(".main").addEventListener("click", (() => {
             imageInput.value = "";
             imageInput.file = [];
             previewsContainer.innerHTML = "";
-            uploadResults.classList.remove("_visible");
-            document.documentElement.classList.remove("preload");
-            uploadTitle.classList.remove("_uploaded");
+            body.classList.remove("preload");
+            body.classList.remove("uploaded");
             resultLinks.innerHTML = "";
             imageInput.click();
         }));
@@ -481,8 +510,6 @@
                 if (!allowedTypes.includes(file.type)) alert(file.name + "Имеет недопустимый формат изображения" + allowedTypes.toString()); else if (file.size > 33554432) alert(file.name + "Имеет недопустимый размер изображения (необходимо менее 32Мб)"); else {
                     const reader = new FileReader;
                     reader.addEventListener("load", (() => {
-                        renewBtn.classList.add("_visible");
-                        uploadTitle.classList.add("_edit");
                         const preview = document.createElement("a");
                         preview.classList.add("previews__item");
                         preview.setAttribute("data-id", idCounter++);
@@ -503,9 +530,7 @@
                                 previewsContainer.removeChild(preview);
                                 if (!document.querySelector(".previews__item")) {
                                     imageInput.value = "";
-                                    document.documentElement.classList.remove("preload");
-                                    renewBtn.classList.remove("_visible");
-                                    uploadTitle.classList.remove("_edit");
+                                    body.classList.remove("preload");
                                 }
                                 document.querySelectorAll(".page__form").forEach((el => el.dataset.id === preview.dataset.id && document.querySelector(".page__settings-forms").removeChild(el)));
                             }
@@ -529,7 +554,7 @@
                                     const imgObj = new Image;
                                     imgObj.src = reader.result;
                                     modules_flsModules.popup.open(editButton.dataset.popup);
-                                    pictureSettings.innerHTML = `\n                  <div id="popup-${idItem}" aria-hidden="true" class="popup">\n                  <div class="popup__wrapper">\n                    <div class="popup__content">\n                      <button data-close type="button" class="popup__close _icon-xmark" title="Закрыть"></button>\n                      <div class="popup__text settings">\n                        <h3 class="settings__title">Редактировать</h3>\n                        <img class="settings__image" src="${reader.result}">\n                        <form class="settings__form">\n                          <label class="settings__label">\n                            Заголовок <span>(необязательно)</span>\n                            <input class="settings__input" value="${file.name.substring(0, file.name.lastIndexOf("."))}" type="text" name="name[${idItem}]">\n                          </label>\n                          <label class="settings__label settings__label_size">\n                            <p>Изменить размер изображения</p>\n                            <input class="settings__input" value="${imgObj.naturalWidth}" type="number" min="10" max="2000" name="width[${idItem}]" title="Ширина" autocomplete="off">\n                            <input class="settings__input" value="${imgObj.naturalHeight}" type="number" min="10" max="2000" name="height[${idItem}]" title="Высота" autocomplete="off">\n                          </label>\n                          <label class="settings__label">\n                            Описание <span>(необязательно)</span>\n                            <textarea class="settings__input" rows="5" type="text" name="description[${idItem}]" placeholder="краткое описание изображения"></textarea>\n                          </label>\n                          <button class="settings__submit btn" type="submit">Сохранить</button> \n                        </form>\n                      </div>\n                    </div>\n                  </div>\n                  </div>\n                `;
+                                    pictureSettings.innerHTML = `\n                  <div id="popup-${idItem}" aria-hidden="true" class="popup">\n                  <div class="popup__wrapper">\n                    <div class="popup__content">\n                      <button data-close type="button" class="popup__close _icon-xmark" title="Закрыть"></button>\n                      <div class="popup__text settings">\n                        <h3 class="settings__title">Редактировать</h3>\n                        <img class="settings__image" src="${reader.result}">\n                        <form class="settings__form">\n                          <label class="settings__label">\n                            Заголовок <span>(необязательно)</span>\n                            <input class="settings__input" value="${file.name.substring(0, file.name.lastIndexOf("."))}" type="text" name="name[${idItem}]">\n                          </label>\n                          <label class="settings__label settings__label_size">\n                            <p>Изменить размер изображения</p>\n                            <input class="settings__input" value="${imgObj.naturalWidth}" type="number" min="10" max="2000" name="width[${idItem}]" title="Ширина" autocomplete="off">\n                            <input class="settings__input" value="${imgObj.naturalHeight}" type="number" min="10" max="2000" name="height[${idItem}]" title="Высота" autocomplete="off">\n                          </label>\n                          <label class="settings__label">\n                            Описание <span>(необязательно)</span>\n                            <textarea class="settings__input" rows="3" type="text" name="description[${idItem}]" placeholder="краткое описание изображения"></textarea>\n                          </label>\n                          <button class="settings__submit btn" type="submit">Сохранить</button> \n                        </form>\n                      </div>\n                    </div>\n                  </div>\n                  </div>\n                `;
                                     pictureSettings.querySelector(".settings__submit").addEventListener("click", (e => {
                                         e.preventDefault();
                                         const newName = document.querySelector(`input[name="name[${idItem}]"]`).value;
@@ -554,7 +579,15 @@
                         }));
                     }));
                     reader.readAsDataURL(file);
-                    if (file) document.documentElement.classList.add("preload");
+                    if (file) {
+                        body.classList.add("preload");
+                        body.removeEventListener("touchstart", handleTouchStart, {
+                            passive: true
+                        });
+                        body.removeEventListener("touchend", handleTouchEnd, {
+                            passive: true
+                        });
+                    }
                 }
             }
         };
@@ -565,7 +598,7 @@
             document.querySelectorAll(".previews__edit").forEach((el => el.remove()));
         }));
         async function upload() {
-            document.documentElement.classList.add("_uploading");
+            body.classList.add("_uploading");
             const promises = [];
             for (let i = 0; i < imageInput.files.length; i++) promises.push(fetchImage(imageInput.files[i]));
             const results = await Promise.all(promises);
@@ -603,11 +636,9 @@
             }
         }
         async function renderLinks(shortLinkS, fullLinkS) {
-            uploadResults.classList.add("_visible");
-            uploadTitle.classList.remove("_edit");
-            uploadTitle.classList.add("_uploaded");
-            document.documentElement.classList.remove("preload");
-            document.documentElement.classList.remove("_uploading");
+            body.classList.add("uploaded");
+            body.classList.remove("preload");
+            body.classList.remove("_uploading");
             const previewLinks = document.querySelectorAll(".previews__item");
             for (let i = 0; i < previewLinks.length; i++) previewLinks[i].setAttribute("href", shortLinkS[i]);
             resultLinks.innerHTML = shortLinkS.map((el => `<li><a href="${el}" target="_blank">${el}</a></li>`)).join("");
@@ -615,16 +646,24 @@
                 const opt = uploadResults.querySelectorAll("option");
                 opt[0].selected ? resultLinks.innerHTML = shortLinkS.map((el => `<li><a href="${el}" target="_blank">${el}</a></li>`)).join("") : opt[1].selected ? resultLinks.innerHTML = fullLinkS.map((el => `<li><a href="${el}" target="_blank">${el}</a></li>`)).join("") : opt[2].selected ? resultLinks.innerHTML = fullLinkS.map((el => `<li>&ltimg src="${el}" alt="01" border="0"></li>`)).join("") : opt[3].selected ? resultLinks.innerHTML = fullLinkS.map((el => `<li>&lta href="${el}">&ltimg src="${el}" alt="01" border="0"></a></li>`)).join("") : opt[4].selected ? resultLinks.innerHTML = shortLinkS.map((el => `<li>&lta href="https://imgbb.com/">&ltimg src="${el}" alt="01" border="0"></a></li>`)).join("") : opt[5].selected ? resultLinks.innerHTML = shortLinkS.map((el => `<li>&lta href="${el}">&ltimg src="${el}" alt="01" border="0"></a></li>`)).join("") : opt[6].selected ? resultLinks.innerHTML = fullLinkS.map((el => `<li>[img]${el}[/img]</li>`)).join("") : opt[7].selected ? resultLinks.innerHTML = shortLinkS.map((el => `<li>[url=${el}][img]${el}[/img][/url]</li>`)).join("") : opt[8].selected ? resultLinks.innerHTML = shortLinkS.map((el => `<li>[url=https://imgbb.com/][img]${el}[/img][/url]</li>`)).join("") : opt[9].selected ? resultLinks.innerHTML = fullLinkS.map((el => `<li>[url=${el}][img]${el}[/img][/url]</li>`)).join("") : null;
             }));
+            document.querySelector(".results__copy").addEventListener("click", (function() {
+                const elementToCopy = document.querySelector(".results__links").innerHTML;
+                navigator.clipboard.writeText(elementToCopy);
+            }));
         }
         renewBtn.addEventListener("click", (() => {
             previewsContainer.innerHTML = "";
             imageInput.value = "";
             imageInput.file = [];
-            renewBtn.classList.toggle("_visible");
-            uploadResults.classList.remove("_visible");
-            uploadTitle.classList.remove("_edit", "_uploaded");
             resultLinks.innerHTML = "";
-            document.documentElement.classList.remove("preload");
+            body.classList.remove("preload");
+            body.classList.remove("uploaded");
+            body.addEventListener("touchstart", handleTouchStart, {
+                passive: true
+            });
+            body.addEventListener("touchend", handleTouchEnd, {
+                passive: true
+            });
         }));
         let expiration = 0;
         const timeSelect = document.querySelector(".upload__autodelete-time");
@@ -634,26 +673,6 @@
         }));
     }
     uploadSidebar();
-    if (document.documentElement.classList.contains("upload-active")) {
-        const startY = 0;
-        const endY = 0;
-        let swipeThreshold = 100;
-        function handleTouchStart(event) {
-            startY = event.touches[0].clientY;
-        }
-        function handleTouchEnd(event) {
-            endY = event.changedTouches[0].clientY;
-            let swipeLength = endY - startY;
-            if (endY < startY && Math.abs(swipeLength) > swipeThreshold) document.documentElement.classList.remove("upload-active");
-        }
-        window.addEventListener("touchstart", handleTouchStart, {
-            passive: true
-        });
-        window.addEventListener("touchend", handleTouchEnd, {
-            passive: true
-        });
-    }
-    window["FLS"] = false;
     isWebp();
     addLoadedClass();
     menuInit();

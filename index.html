@@ -11,7 +11,7 @@
 			opacity: 0;
 		}
 	</style>
-	<link rel="stylesheet" href="css/style.min.css?_v=20230517034812">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230521013145">
 	<link rel="shortcut icon" href="img/favicon.svg">
 	<meta name="theme-color" content="#6060cc">
 	<meta name="description" content="Сервис по загрузке изображений">
@@ -35,7 +35,7 @@
 				<a data-goto=".api" data-goto-header href="#" data-goto-top="20" class="header__link">API</a>
 				<a data-goto=".footer" data-goto-header href="#" data-goto-top="20" href="#" class="header__link">CONTACT</a>
 			</nav>
-			<button class="header__burger"><span></span></button>
+			<button data-lp class="header__burger"><span></span></button>
 		</header>
 		<aside data-lp class="upload">
 			<button data-lp class="upload__close _icon-xmark" type="button">Закрыть</button>
@@ -83,8 +83,8 @@
 				<div class="upload__results results">
 					<select class="results__select">
 						<optgroup label="Ссылки">
-							<option class="dsad" name="result[1]">Ссылки на просмотр</option>
-							<option class="dsadf" name="result[2]">Прямые ссылки</option>
+							<option name="result[1]">Ссылки на просмотр</option>
+							<option name="result[2]">Прямые ссылки</option>
 						</optgroup>
 						<optgroup label="HTML-коды">
 							<option name="result[3]">HTML-код полноразмерного со ссылкой</option>
@@ -98,6 +98,7 @@
 							<option name="result[9]">BB-код миниатюры со ссылкой</option>
 						</optgroup>
 					</select>
+					<button class="results__copy" title="Копировать ссылки">Копировать</button>
 					<ol class="results__links"></ol>
 				</div>
 			</form>
@@ -142,6 +143,7 @@
 					<dd class="api__dd">The description of the file (optional)</dd>
 				</dl>
 			</section>
+			<section class="page__settings-forms"></section>
 			<div class="page__decorations">
 				<p></p>
 				<p></p>
@@ -154,8 +156,17 @@
 				<p></p>
 				<p></p>
 			</div>
-
 		</main>
+		<div id="form-settings" aria-hidden="true" class="popup">
+			<div class="popup__wrapper">
+				<aside class="popup__content bg bg-popup">
+					<button data-close type="button" class="popup__close" title="Закрыть"></button>
+					<div class="popup__body">
+
+					</div>
+				</aside>
+			</div>
+		</div>
 		<footer class="footer">
 			<h2 class="footer__title">Contacts</h2>
 			<p class="footer__text">Russia, Saratov</p>
@@ -188,7 +199,7 @@
 
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230517034812"></script>
+	<script src="js/app.min.js?_v=20230521013145"></script>
 </body>
 
 </html>

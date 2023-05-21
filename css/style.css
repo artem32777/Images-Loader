@@ -9,16 +9,8 @@
 @font-face {
   font-family: gteestiprodisplay;
   font-display: swap;
-  src: url("../fonts/gteestiprodisplay-bold.woff2") format("woff2"), url("../fonts/gteestiprodisplay-bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: gteestiprodisplay;
-  font-display: swap;
   src: url("../fonts/gteestiprodisplay-thin.woff2") format("woff2"), url("../fonts/gteestiprodisplay-thin.woff") format("woff");
-  font-weight: 100;
+  font-weight: 300;
   font-style: normal;
 }
 
@@ -727,15 +719,15 @@ body::after {
   background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
 }
 
-@supports (margin-bottom: clamp( 0.3125rem , -0.1379504505rem  +  2.2522522523vw , 1.875rem )) {
+@supports (margin-bottom: clamp( 0.625rem , 0.2646396396rem  +  1.8018018018vw , 1.875rem )) {
   .h {
-    margin-bottom: clamp( 0.3125rem , -0.1379504505rem  +  2.2522522523vw , 1.875rem );
+    margin-bottom: clamp( 0.625rem , 0.2646396396rem  +  1.8018018018vw , 1.875rem );
   }
 }
 
-@supports not (margin-bottom: clamp( 0.3125rem , -0.1379504505rem  +  2.2522522523vw , 1.875rem )) {
+@supports not (margin-bottom: clamp( 0.625rem , 0.2646396396rem  +  1.8018018018vw , 1.875rem )) {
   .h {
-    margin-bottom: calc(0.3125rem + 1.5625 * (100vw - 20rem) / 69.375);
+    margin-bottom: calc(0.625rem + 1.25 * (100vw - 20rem) / 69.375);
   }
 }
 
@@ -1976,6 +1968,7 @@ body::after {
 
   .header__menu {
     opacity: 0;
+    letter-spacing: 0.1em;
     pointer-events: none;
     gap: 0.3125rem;
     padding: 0.625rem;

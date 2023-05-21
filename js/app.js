@@ -527,6 +527,7 @@
                             e.preventDefault();
                             const preview = e.target.closest(".previews__item");
                             if (preview) {
+                                file.delete = true;
                                 previewsContainer.removeChild(preview);
                                 if (!document.querySelector(".previews__item")) {
                                     imageInput.value = "";
@@ -600,7 +601,7 @@
         async function upload() {
             body.classList.add("_uploading");
             const promises = [];
-            for (let i = 0; i < imageInput.files.length; i++) promises.push(fetchImage(imageInput.files[i]));
+            for (let i = 0; i < imageInput.files.length; i++) if (!imageInput.files[i].delete) promises.push(fetchImage(imageInput.files[i]));
             const results = await Promise.all(promises);
             const shortLinkS = results.map((result => result.data.url_viewer));
             const fullLinkS = results.map((result => result.data.url));
@@ -648,7 +649,8 @@
             }));
             document.querySelector(".results__copy").addEventListener("click", (function() {
                 const elementToCopy = document.querySelector(".results__links").innerHTML;
-                navigator.clipboard.writeText(elementToCopy);
+                const html = elementToCopy.replace(/<li[^>]*>/g, "").replace(/<\/li>/g, "");
+                navigator.clipboard.writeText(html);
             }));
         }
         renewBtn.addEventListener("click", (() => {
@@ -673,6 +675,13 @@
         }));
     }
     uploadSidebar();
+    function domainName(url) {
+        const result = url.replace(/.*?:\/\//, "").replace(/www./, "").replace(/\..*$/, "");
+        return result;
+    }
+    console.log(domainName("http://github.com/carbonfive/raygun"));
+    console.log(domainName("http://www.zombie-bites.com"));
+    console.log(domainName("https://www.cnet.com"));
     isWebp();
     addLoadedClass();
     menuInit();

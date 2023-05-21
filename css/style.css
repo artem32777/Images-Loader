@@ -768,10 +768,6 @@ body::after {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.header__logo {
-  width: 12.5rem;
-}
-
 .header__logo a {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -781,6 +777,7 @@ body::after {
           align-items: center;
   gap: 0.625rem;
   color: #6060cc;
+  width: 12.5rem;
 }
 
 .header__logo svg {
@@ -984,6 +981,10 @@ body::after {
 
 .card__name {
   font-size: 1.5625rem;
+}
+
+.card__label {
+  color: #000;
 }
 
 .card__contact-buttons {
@@ -2182,13 +2183,13 @@ body::after {
     color: rgb(215, 60, 60);
   }
 
-  .header__logo {
+  .header__logo a {
     -webkit-transition: letter-spacing 0.3s ease 0s;
     -o-transition: letter-spacing 0.3s ease 0s;
     transition: letter-spacing 0.3s ease 0s;
   }
 
-  .header__logo:hover {
+  .header__logo a:hover {
     letter-spacing: 0.4375rem;
   }
 

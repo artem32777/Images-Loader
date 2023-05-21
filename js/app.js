@@ -473,7 +473,6 @@
             }
         }
         body.addEventListener("click", (e => {
-            const uploadElements = e.target.closest(".upload, .popup") || e.target.matches(".previews__edit, .previews__delete, .upload__submit, .header__burger");
             if (e.target.closest(".header__upload-btn") && !body.classList.contains("upload-active") && !body.classList.contains("preload") && !body.classList.contains("uploaded")) {
                 body.addEventListener("touchstart", handleTouchStart, {
                     passive: true
@@ -482,7 +481,10 @@
                     passive: true
                 });
             }
-            if (e.target.closest(".header__upload-btn") || e.target.closest(".upload__close")) body.classList.toggle("upload-active"); else if (!uploadElements) uploadClose();
+            if (e.target.closest(".header__upload-btn") || e.target.closest(".upload__close")) body.classList.toggle("upload-active"); else if (!e.target.closest(".upload") & !e.target.closest(".popup")) {
+                e.stopPropagation();
+                uploadClose();
+            }
         }));
         window.addEventListener("keydown", (e => e.key === "Escape" && uploadClose()));
         uploadArea.addEventListener("dragover", (e => e.preventDefault()));
@@ -524,7 +526,7 @@
                         deleteButton.setAttribute("title", "Удалить");
                         preview.appendChild(deleteButton);
                         deleteButton.addEventListener("click", (e => {
-                            e.preventDefault();
+                            e.stopPropagation();
                             const preview = e.target.closest(".previews__item");
                             if (preview) {
                                 file.delete = true;

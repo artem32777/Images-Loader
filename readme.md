@@ -10,4 +10,6 @@
 
 Мой дизайн и код.
 
+<img width="400" height="300" src="https://raw.githubusercontent.com/artem32777/Images-Loader/main/img/image-stats.jpg">
+
 p.s. под попап использовал чужой ранее написанный класс. 
